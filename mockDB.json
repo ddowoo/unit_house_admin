@@ -1,0 +1,98 @@
+{
+  "tenants": {
+    "1": {
+      "101": {
+        "name": "민선홍",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 4000,
+        "rent": 120,
+        "startDate": "2020-12-13",
+        "endDate": "2025-10-07"
+      },
+      "102": {
+        "name": "안진우",
+        "msgList": [],
+        "type": "월세",
+        "deposit": 500,
+        "rent": 37,
+        "startDate": "2020-12-13",
+        "endDate": "2025-10-30"
+      },
+      "103": {
+        "name": "권영자",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 7000,
+        "rent": 40,
+        "startDate": "2020-12-13",
+        "endDate": "2025-10-30"
+      },
+      "104": {
+        "name": "박영광",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 4000,
+        "rent": 0,
+        "startDate": "2020-12-13",
+        "endDate": "2025-11-27"
+      },
+      "105": {
+        "name": "박월란",
+        "msgList": [],
+        "type": "월세",
+        "deposit": 500,
+        "rent": 40,
+        "startDate": "2020-12-13",
+        "endDate": "2025-11-01"
+      }
+    },
+    "2": {
+      "201": {
+        "name": "김태훈",
+        "msgList": [],
+        "type": "월세",
+        "deposit": 500,
+        "rent": 40,
+        "startDate": "2020-12-13",
+        "endDate": "2023-12-03"
+      },
+      "202": {
+        "name": "노자운",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 4000,
+        "rent": 3,
+        "startDate": "2020-12-13",
+        "endDate": "2024-03-01"
+      },
+      "203": {
+        "name": "홍찬의",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 8000,
+        "rent": 4,
+        "startDate": "2020-12-13",
+        "endDate": "2025-09-06"
+      },
+      "204": {
+        "name": "민기쁨",
+        "msgList": [],
+        "type": "월세",
+        "deposit": 500,
+        "rent": 40,
+        "startDate": "2020-12-13",
+        "endDate": "2025-11-09"
+      },
+      "205": {
+        "name": "장영남",
+        "msgList": [],
+        "type": "전세",
+        "deposit": 4500,
+        "rent": 3,
+        "startDate": "2020-12-13",
+        "endDate": "2024-03-02"
+      }
+    }
+  }
+}
