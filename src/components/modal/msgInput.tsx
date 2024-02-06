@@ -1,10 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { BiX } from "react-icons/bi";
-import { KakaoMsgContext } from "../../context/kakaoMsg";
 
 function MsgInputModal() {
-  //   const { kakaoMsg, setKakaoMsg } = useContext(KakaoMsgContext);
-  //   const { onClickSaveMsg, onClickX } = props;
   const [msg, setMsg] = useState("");
   const onClickX = () => {};
 
