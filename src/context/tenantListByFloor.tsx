@@ -4,6 +4,7 @@ import axios from "axios";
 const defaultContext: {
   tenantListByFloor: null;
   tenantCount: {
+    empty: number;
     month: number;
     year: number;
   };
@@ -15,6 +16,7 @@ const defaultContext: {
   tenantCount: {
     month: 0,
     year: 0,
+    empty: 0,
   },
   selectedTenant: null,
 };
@@ -23,7 +25,7 @@ export const TenantListByFloorContext = createContext(defaultContext);
 
 export default function TenantListByFloorProvider({ children }: { children: ReactNode }) {
   const [tenantListByFloor, setTenantListByFloor] = useState<null | any>(null);
-  const [tenantCount, setTenantCount] = useState({ month: 0, year: 0 });
+  const [tenantCount, setTenantCount] = useState({ month: 0, year: 0, empty: 0 });
 
   const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
 
@@ -35,22 +37,27 @@ export default function TenantListByFloorProvider({ children }: { children: Reac
         setTenantListByFloor(data);
       } catch (error) {}
     }
+
     function calcContractTypeTenants(tenants: any) {
       let month = 0;
       let year = 0;
+      let empty = 0;
+
       Object.keys(tenants)
         .reverse()
         .map((floor) => {
           Object.keys(tenants[floor]).map((roomNumber) => {
-            const tenant = tenants[floor][roomNumber];
-            if (tenant.type === "전세") {
+            const tenant: Tenant = tenants[floor][roomNumber];
+            if (tenant.deposit === 0 && tenant.rent === 0) {
+              empty++;
+            } else if (tenant.type === "전세") {
               year++;
             } else {
               month++;
             }
           });
         });
-      setTenantCount({ month, year });
+      setTenantCount({ month, year, empty });
     }
 
     getTenantList();

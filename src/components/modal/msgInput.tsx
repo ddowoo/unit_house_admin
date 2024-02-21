@@ -7,7 +7,7 @@ function MsgInputModal() {
 
   const onChangeMsg = (e?: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e) {
-      setMsg(e.target.value);
+      setMsg(e.target?.value ?? "");
     }
   };
 

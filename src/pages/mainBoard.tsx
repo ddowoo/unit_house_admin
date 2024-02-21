@@ -9,7 +9,7 @@ import { useModal } from "../hooks/useModal";
 
 const MONTH_COLOR = "bg-orange-500";
 const YEAR_COLOR = "bg-blue-500";
-// dateGap <= 90 && `${tenant.type === "전세" ? "from-green-500" : "from-yellow-500"} bg-gradient-to-r to-red-500`
+const EMPTY_COLOR = "bg-gray-500";
 
 function MainBoard() {
   const { modalType } = useContext(ModalContext);
@@ -38,7 +38,9 @@ function MainBoard() {
         <div className="flex mt-5">
           <div className="flex flex-1 flex-col p-3">
             <p className="mb-4">
-              입주자 현황 (월세: {tenantCount.month} <span className={`px-3 py-0 mr-1 ${MONTH_COLOR}`}></span> / 전세: {tenantCount.year} <span className={`px-3 py-0 mr-1 ${YEAR_COLOR}`}></span>)
+              입주자 현황 (월세: {tenantCount.month} <span className={`px-3 py-0 mr-1 ${MONTH_COLOR}`}></span>/ 전세: {tenantCount.year} <span className={`px-3 py-0 mr-1 ${YEAR_COLOR}`}></span> /
+              공실:
+              {tenantCount.empty} <span className={`px-3 py-0 mr-1 ${EMPTY_COLOR}`}></span> )
             </p>
             <div className="flex flex-col">
               {tenantListByFloor &&
@@ -49,9 +51,12 @@ function MainBoard() {
                       <div className="flex" key={`floor_${floor}`}>
                         {Object.keys(tenantListByFloor[floor]).map((roomNumber) => {
                           const tenant: Tenant = tenantListByFloor[floor][roomNumber];
+                          const isEmpty = tenant.deposit === 0 && tenant.rent === 0;
                           const tenantEndDate = new Date(tenant.endDate);
                           const today = new Date();
                           const dateGap = Math.floor((tenantEndDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+                          if (isEmpty) return <div className={`p-3 m-0.5 flex-1 transition-all text-sm font-semibold ${EMPTY_COLOR}`}>공실</div>;
 
                           return (
                             <div

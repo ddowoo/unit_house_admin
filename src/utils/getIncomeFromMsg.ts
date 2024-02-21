@@ -1,4 +1,4 @@
-export const getIncomeFromMsg = (input) => {
+export const getIncomeFromMsg = (input: string) => {
   const messageList = input.split("\n");
   console.log(messageList);
   const newMsgList = [];
@@ -14,8 +14,8 @@ export const getIncomeFromMsg = (input) => {
   }
 
   const incomeMsgList = newMsgList.filter((msg) => msg.includes("[Web발신]하나") && msg.includes("입금"));
-  const nameList = [];
-  const incomeList = [];
+  const nameList: string[] = [];
+  const incomeList: number[] = [];
   const thisMonthIncome = incomeMsgList.reduce((acc, cur) => {
     nameList.push(cur.split("\n")[3]);
     const income = Number(cur.split("\n")[2].replace("입금", "").replace("원", "").replaceAll(",", ""));
