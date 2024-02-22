@@ -1,17 +1,17 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { useModal } from "../../hooks/useModal";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useContext, useState } from "react";
+import { TenantListByFloorContext } from "../../context/tenantListByFloor";
+import axios from "axios";
+import { editUserInfoFetch } from "../../api/fetches";
 
-const TenantInfo = (props: { tenant: any }) => {
+const TenantInfo = (props: { tenant: Tenant }) => {
   const { tenant } = props;
-  const { closeModal } = useModal();
+  const { closeModal, openModal } = useModal();
+  const { getTenantList } = useContext(TenantListByFloorContext);
+  const [type, setType] = useState(tenant.type);
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors, isSubmitting },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: { ...tenant },
   });
 
@@ -23,6 +23,31 @@ const TenantInfo = (props: { tenant: any }) => {
   };
 
   const onSubmit = (value: FieldValues) => {
+    console.log(value);
+    const _tenant = {
+      ...tenant,
+      ...value,
+      type,
+    };
+
+    console.log("_tenatn");
+    console.log(_tenant);
+
+    editTenantInfo(_tenant);
+  };
+
+  const onPressCalculate = () => {
+    openModal("depositHistory");
+  };
+
+  const onPressExpire = () => {
+    axios.patch("");
+  };
+
+  const editTenantInfo = async (tenant: Tenant) => {
+    await editUserInfoFetch(tenant.id, tenant);
+
+    await getTenantList();
     closeModal();
   };
 
@@ -48,7 +73,11 @@ const TenantInfo = (props: { tenant: any }) => {
               <ul className="flex">
                 <li className="flex-1">
                   <p className="mb-1 text-sm font-bold">계약타입</p>
-                  <select value={tenant.type} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <select
+                    onChange={(e) => setType(e.currentTarget.value)}
+                    value={type}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
                     <option value="전세">전세</option>
                     <option value="월세">월세</option>
                   </select>
@@ -100,10 +129,16 @@ const TenantInfo = (props: { tenant: any }) => {
           ></input>
         </form>
         <div className="flex">
-          <button className="flex-1 mt-5 font-bold text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          <button
+            onClick={onPressCalculate}
+            className="flex-1 mt-5 font-bold text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
             정산 내역
           </button>
-          <button className="flex-1 mt-5 font-bold text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          <button
+            onClick={onPressExpire}
+            className="flex-1 mt-5 font-bold text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
             계약 만료
           </button>
         </div>

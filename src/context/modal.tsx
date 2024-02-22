@@ -1,6 +1,6 @@
 import React, { Context, ReactNode, createContext, useState } from "react";
 
-export type modalType = "msgInput" | "tenantInfo";
+export type modalType = "msgInput" | "tenantInfo" | "inputIncome" | "depositHistory";
 
 const defaultValue: {
   isVisible: boolean;

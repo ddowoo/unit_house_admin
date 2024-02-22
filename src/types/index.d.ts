@@ -1,6 +1,8 @@
 type Tenant = {
+  id: number;
+  roomNumber: string;
   name: string;
-  depositHistoryList: [];
+  depositHistory: DepositHistory[];
   type: string;
   deposit: number;
   rent: number;
